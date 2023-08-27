@@ -181,6 +181,3 @@ ORDER BY nom;
 -----------------------------------------EJERCICIO 18-------------------------------------------
 ------------------------------------------------------------------------------------------------
 ----18. Listar aquellas localidades donde resida un vendedor o un cliente, pero no los dos. 
-----17. Mostrar los nombres y apellidos de todos los vendedores agregando, cuando corresponda,
-----el apellido de los clientes asignados a cada uno de ellos.
-----18. Listar aquellas localidades donde resida un vendedor o un cliente, pero no los dos. 
