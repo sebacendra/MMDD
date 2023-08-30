@@ -150,7 +150,11 @@ set search_path='main';
 ------------------------------------------------------------------------------------------------
 ----10. Mostrar, para cada pedido, la identificación de cada uno y el importe total (cantidad *
 ----precio unitario).
-
+--
+--SELECT id_pedido, total
+--FROM main.pedidos
+--ORDER BY id_pedido;
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 11-------------------------------------------
 ------------------------------------------------------------------------------------------------
@@ -196,3 +200,50 @@ set search_path='main';
 -----------------------------------------EJERCICIO 18-------------------------------------------
 ------------------------------------------------------------------------------------------------
 ----18. Listar aquellas localidades donde resida un vendedor o un cliente, pero no los dos. 
+--
+--SELECT l.nombre as uni
+--FROM localidades l, clientes c
+--WHERE l.cod_post=c.cod_post
+--AND l.cod_post_aux=c.cod_post_aux
+--
+--UNION
+--
+--SELECT l.nombre
+--FROM localidades l, vendedores v
+--WHERE l.cod_post=v.cod_post
+--AND l.cod_post_aux=v.cod_post_aux;
+--
+--SELECT l.nombre as inter
+--FROM localidades l, clientes c
+--WHERE l.cod_post=c.cod_post
+--AND l.cod_post_aux=c.cod_post_aux
+--
+--INTERSECT
+--
+--SELECT l.nombre
+--FROM localidades l, vendedores v
+--WHERE l.cod_post=v.cod_post
+--AND l.cod_post_aux=v.cod_post_aux;
+
+SELECT l.nombre as respuesta
+FROM localidades l, clientes c
+WHERE l.cod_post=c.cod_post
+AND l.cod_post_aux=c.cod_post_aux
+UNION  (SELECT l.nombre
+        FROM localidades l, vendedores v
+        WHERE l.cod_post=v.cod_post
+        AND l.cod_post_aux=v.cod_post_aux)
+EXCEPT
+SELECT l.nombre as inter
+FROM localidades l, clientes c
+WHERE l.cod_post=c.cod_post
+AND l.cod_post_aux=c.cod_post_aux
+INTERSECT  (SELECT l.nombre
+            FROM localidades l, vendedores v
+            WHERE l.cod_post=v.cod_post
+            AND l.cod_post_aux=v.cod_post_aux);
+
+
+
+
+
