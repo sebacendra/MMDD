@@ -158,9 +158,13 @@ set search_path='main';
 ----10. Mostrar, para cada pedido, la identificación de cada uno y el importe total (cantidad *
 ----precio unitario).
 --
+----OPCION 1
+--SELECT id_pedido, sum(cantidad*precio_unitario)
+--FROM renglones_pdo
+--
+----OPCION 2
 --SELECT id_pedido, total
---FROM main.pedidos
---ORDER BY id_pedido;
+--FROM pedidos
 --
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 11-------------------------------------------
