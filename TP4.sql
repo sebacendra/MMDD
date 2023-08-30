@@ -111,22 +111,29 @@ set search_path='main';
 ------------------------------------------------------------------------------------------------
 ----7. Mostrar los nombres y apellidos de los diferentes clientes que hicieron pedidos 
 ----a la oficina de ventas 1.
+--
 --SELECT C.Nombres as nom, C.Apellidos
 --FROM CLIENTES C, VENDEDORES V
 --WHERE	C.id_vend = V.id_vend AND V.id_oficina = 1
---ORDER BY nom;
+--ORDER BY nom;  
 --
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 8--------------------------------------------
 ------------------------------------------------------------------------------------------------
 ----8. Mostrar la cantidad de clientes distintos que hicieron pedidos a la oficina de ventas 1.
 --
---SELECT count (c.id_cliente)
+----OPCION 1
+--SELECT count(DISTINCT c.id_cliente)
 --FROM clientes c, vendedores v, oficinas_vtas o, pedidos p
 --WHERE o.id_oficina=1 
 --AND c.id_cliente=p.id_cliente
 --AND p.id_vend=v.id_vend
 --AND o.id_oficina=v.id_oficina;
+----OPCION 2
+--SELECT count(c.id_cliente)
+--FROM clientes c, vendedores v
+--WHERE v.id_oficina=1 
+--AND c.id_vend=v.id_vend
 --
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 9--------------------------------------------
@@ -224,26 +231,28 @@ set search_path='main';
 --FROM localidades l, vendedores v
 --WHERE l.cod_post=v.cod_post
 --AND l.cod_post_aux=v.cod_post_aux;
+---------------------------------
 
-SELECT l.nombre as respuesta
-FROM localidades l, clientes c
-WHERE l.cod_post=c.cod_post
-AND l.cod_post_aux=c.cod_post_aux
-UNION  (SELECT l.nombre
-        FROM localidades l, vendedores v
-        WHERE l.cod_post=v.cod_post
-        AND l.cod_post_aux=v.cod_post_aux)
-EXCEPT
-SELECT l.nombre as inter
-FROM localidades l, clientes c
-WHERE l.cod_post=c.cod_post
-AND l.cod_post_aux=c.cod_post_aux
-INTERSECT  (SELECT l.nombre
-            FROM localidades l, vendedores v
-            WHERE l.cod_post=v.cod_post
-            AND l.cod_post_aux=v.cod_post_aux);
-
-
-
-
-
+--SELECT l.nombre as respuesta
+--FROM localidades l, clientes c
+--WHERE l.cod_post=c.cod_post
+--AND l.cod_post_aux=c.cod_post_aux
+--UNION  (SELECT l.nombre
+--        FROM localidades l, vendedores v
+--        WHERE l.cod_post=v.cod_post
+--        AND l.cod_post_aux=v.cod_post_aux)
+--EXCEPT
+--SELECT l.nombre as inter
+--FROM localidades l, clientes c
+--WHERE l.cod_post=c.cod_post
+--AND l.cod_post_aux=c.cod_post_aux
+--INTERSECT  (SELECT l.nombre
+--            FROM localidades l, vendedores v
+--            WHERE l.cod_post=v.cod_post
+--            AND l.cod_post_aux=v.cod_post_aux);
+--
+--
+--
+--
+--
+--
