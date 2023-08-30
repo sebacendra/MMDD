@@ -171,7 +171,15 @@ set search_path='main';
 ------------------------------------------------------------------------------------------------
 ----11. Por cada cliente, mostrar los importes máximo, mínimo y promedio de todos los renglones
 ----de pedidos realizados.
-
+--
+--SELECT p.id_cliente, max(r.cantidad*r.precio_unitario), 
+--min(r.cantidad*r.precio_unitario),
+--avg(r.cantidad*r.precio_unitario)
+--FROM renglones_pdo r, pedidos p
+--WHERE r.id_pedido=p.id_pedido
+--GROUP BY p.id_cliente
+--ORDER BY p.id_cliente
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 12-------------------------------------------
 ------------------------------------------------------------------------------------------------
