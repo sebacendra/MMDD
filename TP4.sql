@@ -185,7 +185,16 @@ set search_path='main';
 ------------------------------------------------------------------------------------------------
 ----12. Mostrar todos los pedidos para los cuales el total de los renglones de pedido supere al
 ----total de los renglones del pedido número 113.
-
+--
+--SELECT id_pedido,count(id_renglon)
+--FROM main.renglones_pdo
+--GROUP BY id_pedido
+--HAVING count(id_renglon)>(
+--                            SELECT count(id_renglon)
+--                            FROM main.renglones_pdo
+--                            WHERE id_pedido=113)
+--ORDER BY id_pedido
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 13-------------------------------------------
 ------------------------------------------------------------------------------------------------
