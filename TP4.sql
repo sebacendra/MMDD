@@ -205,7 +205,12 @@ set search_path='main';
 ------------------------------------------------------------------------------------------------
 ----14. Mostrar el nombre de las oficinas donde existan productos cuyas existencias estén por
 ----debajo del punto de repedido.
-
+--
+--SELECT DISTINCT o.nombre
+--FROM stock_local s, oficinas_vtas o
+--WHERE s.id_oficina=o.id_oficina
+--AND s.stock<s.punto_repedido;
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 15-------------------------------------------
 ------------------------------------------------------------------------------------------------
