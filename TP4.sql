@@ -329,7 +329,7 @@ ORDER BY id_vend;
 --            WHERE l.cod_post=v.cod_post
 --            AND l.cod_post_aux=v.cod_post_aux);
 --
---Buen dia, hoy pasé por aca :p 02/09/2023
+--Buen dia, hoy pasé por aca :p 02/09/2023 - RAFA
 --
 --
 --
