@@ -216,7 +216,17 @@ set search_path='main';
 ------------------------------------------------------------------------------------------------
 ----15. Mostrar el id_producto, la descripción y el precio_unitario de los productos que no hayan
 ----sido solicitados en ningún pedido.
-
+--
+--SELECT id_producto, descripcion, precio_unitario
+--FROM main.productos
+--
+--EXCEPT
+--
+--SELECT p.id_producto, p.descripcion, p.precio_unitario
+--FROM main.renglones_pdo r, main.productos p
+--WHERE p.id_producto=r.id_producto
+--GROUP BY p.id_producto;
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 16-------------------------------------------
 ------------------------------------------------------------------------------------------------
