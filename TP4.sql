@@ -150,7 +150,7 @@ set search_path='main';
 --SELECT l.nombre
 --FROM localidades l, vendedores v
 --WHERE l.cod_post=v.cod_post
---AND l.cod_post_aux=v.cod_post_aux;
+--AND l.cod_post_aux=v.cod_post_aux
 --
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 10-------------------------------------------
@@ -199,6 +199,31 @@ set search_path='main';
 -----------------------------------------EJERCICIO 13-------------------------------------------
 ------------------------------------------------------------------------------------------------
 ----13. Mostrar la descripción del producto menos vendido.
+-----------CONSULTAR!!!!!!!!!!!!!!!
+
+
+
+--SELECT id_producto, sum(cantidad) as cant
+--FROM main.renglones_pdo
+--GROUP BY id_producto
+--ORDER BY cant;
+--
+--SELECT*FROM main.productos
+--ORDER BY id_producto;
+--
+--SELECT	P.descripcion as des,sum(R.cantidad) as cant
+--FROM	PRODUCTOS P, RENGLONES_PDO R
+--WHERE	P.id_producto = R.id_producto
+--GROUP BY des
+--HAVING sum(R.cantidad)=10
+--ORDER BY cant
+
+--HAVING	R.cantidad = (SELECT sum(cantidad)
+--		                    FROM RENGLONES_PDO
+--                            
+--                            )
+
+        
 
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 14-------------------------------------------
@@ -231,14 +256,31 @@ set search_path='main';
 -----------------------------------------EJERCICIO 16-------------------------------------------
 ------------------------------------------------------------------------------------------------
 ----16. Mostrar el id_producto, la descripción y precio unitario del producto que fue pedido por
-----todos los clientes.
-
+----todos los clientes. -----------CONSULTAR!!!!!!!!!!!!!!!(A QUE HACE REFERENCIA CON TODOS, SI EL PRODUCTO NO SE REPITE EN NINGUN CLIENTE)
+--
+--SELECT p.id_producto, p.descripcion, p.precio_unitario
+--FROM main.renglones_pdo r, main.productos p
+--WHERE p.id_producto=r.id_producto
+--GROUP BY p.id_producto;
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 17-------------------------------------------
 ------------------------------------------------------------------------------------------------
 ----17. Mostrar los nombres y apellidos de todos los vendedores agregando, cuando corresponda,
 ----el apellido de los clientes asignados a cada uno de ellos.
+--
 
+-----------CONSULTAR!!!!!!!!!!!!!!!
+SELECT v.nombres as NombreVend, v.apellidos as ApellidoVend,c.nombres as NombreCli,c.apellidos as ApellidoCli
+FROM main.vendedores v, main.clientes c
+WHERE v.id_vend=c.id_vend;
+
+SELECT id_vend
+FROM main.vendedores
+ORDER BY id_vend;
+SELECT id_cliente, id_vend
+FROM main.clientes
+ORDER BY id_vend;
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 18-------------------------------------------
 ------------------------------------------------------------------------------------------------
