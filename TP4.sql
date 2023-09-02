@@ -199,32 +199,16 @@ set search_path='main';
 -----------------------------------------EJERCICIO 13-------------------------------------------
 ------------------------------------------------------------------------------------------------
 ----13. Mostrar la descripción del producto menos vendido.
------------CONSULTAR!!!!!!!!!!!!!!!
-
-
-
---SELECT id_producto, sum(cantidad) as cant
---FROM main.renglones_pdo
---GROUP BY id_producto
---ORDER BY cant;
 --
---SELECT*FROM main.productos
---ORDER BY id_producto;
+--SELECT p.id_producto, p.descripcion, sum(r.cantidad) as cant
+--FROM main.renglones_pdo r,main.productos p
+--WHERE r.id_producto=p.id_producto
+--GROUP BY p.id_producto, p.descripcion
+--HAVING sum(r.cantidad) <=ALL(   
+--                            SELECT sum(r1.cantidad)
+--                            FROM main.renglones_pdo r1
+--                            GROUP BY r1.id_producto);
 --
---SELECT	P.descripcion as des,sum(R.cantidad) as cant
---FROM	PRODUCTOS P, RENGLONES_PDO R
---WHERE	P.id_producto = R.id_producto
---GROUP BY des
---HAVING sum(R.cantidad)=10
---ORDER BY cant
-
---HAVING	R.cantidad = (SELECT sum(cantidad)
---		                    FROM RENGLONES_PDO
---                            
---                            )
-
-        
-
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 14-------------------------------------------
 ------------------------------------------------------------------------------------------------
@@ -256,12 +240,13 @@ set search_path='main';
 -----------------------------------------EJERCICIO 16-------------------------------------------
 ------------------------------------------------------------------------------------------------
 ----16. Mostrar el id_producto, la descripción y precio unitario del producto que fue pedido por
-----todos los clientes. -----------CONSULTAR!!!!!!!!!!!!!!!(A QUE HACE REFERENCIA CON TODOS, SI EL PRODUCTO NO SE REPITE EN NINGUN CLIENTE)
+----todos los clientes. 
 --
---SELECT p.id_producto, p.descripcion, p.precio_unitario
---FROM main.renglones_pdo r, main.productos p
+--SELECT DISTINCT p.id_producto, p.descripcion, p.precio_unitario
+--FROM main.renglones_pdo r, main.productos p, main.pedidos pe
 --WHERE p.id_producto=r.id_producto
---GROUP BY p.id_producto;
+--AND pe.id_pedido=r.id_pedido
+--ORDER BY p.id_producto;
 --
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 17-------------------------------------------
@@ -286,48 +271,24 @@ ORDER BY id_vend;
 ------------------------------------------------------------------------------------------------
 ----18. Listar aquellas localidades donde resida un vendedor o un cliente, pero no los dos. 
 --
---SELECT l.nombre as uni
---FROM localidades l, clientes c
---WHERE l.cod_post=c.cod_post
---AND l.cod_post_aux=c.cod_post_aux
+SELECT l.nombre as respuesta
+FROM localidades l, clientes c
+WHERE l.cod_post=c.cod_post
+AND l.cod_post_aux=c.cod_post_aux
+UNION  (SELECT l.nombre
+        FROM localidades l, vendedores v
+        WHERE l.cod_post=v.cod_post
+        AND l.cod_post_aux=v.cod_post_aux)
+EXCEPT
+SELECT l.nombre as inter
+FROM localidades l, clientes c
+WHERE l.cod_post=c.cod_post
+AND l.cod_post_aux=c.cod_post_aux
+INTERSECT  (SELECT l.nombre
+            FROM localidades l, vendedores v
+            WHERE l.cod_post=v.cod_post
+            AND l.cod_post_aux=v.cod_post_aux);
 --
---UNION
---
---SELECT l.nombre
---FROM localidades l, vendedores v
---WHERE l.cod_post=v.cod_post
---AND l.cod_post_aux=v.cod_post_aux;
---
---SELECT l.nombre as inter
---FROM localidades l, clientes c
---WHERE l.cod_post=c.cod_post
---AND l.cod_post_aux=c.cod_post_aux
---
---INTERSECT
---
---SELECT l.nombre
---FROM localidades l, vendedores v
---WHERE l.cod_post=v.cod_post
---AND l.cod_post_aux=v.cod_post_aux;
----------------------------------
-
---SELECT l.nombre as respuesta
---FROM localidades l, clientes c
---WHERE l.cod_post=c.cod_post
---AND l.cod_post_aux=c.cod_post_aux
---UNION  (SELECT l.nombre
---        FROM localidades l, vendedores v
---        WHERE l.cod_post=v.cod_post
---        AND l.cod_post_aux=v.cod_post_aux)
---EXCEPT
---SELECT l.nombre as inter
---FROM localidades l, clientes c
---WHERE l.cod_post=c.cod_post
---AND l.cod_post_aux=c.cod_post_aux
---INTERSECT  (SELECT l.nombre
---            FROM localidades l, vendedores v
---            WHERE l.cod_post=v.cod_post
---            AND l.cod_post_aux=v.cod_post_aux);
 --
 --Buen dia, hoy pasé por aca :p 02/09/2023 - RAFA
 --
