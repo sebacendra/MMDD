@@ -242,11 +242,22 @@ set search_path='main';
 ----16. Mostrar el id_producto, la descripción y precio unitario del producto que fue pedido por
 ----todos los clientes. 
 --
---SELECT DISTINCT p.id_producto, p.descripcion, p.precio_unitario
---FROM main.renglones_pdo r, main.productos p, main.pedidos pe
---WHERE p.id_producto=r.id_producto
---AND pe.id_pedido=r.id_pedido
---ORDER BY p.id_producto;
+SELECT distinct p.id_producto, pe.id_cliente
+FROM productos p LEFT JOIN renglones_pdo r ON p.id_producto=r.id_producto
+LEFT JOIN pedidos pe ON r.id_pedido=pe.id_pedido LEFT JOIN CLIENTES C ON pe.id_cliente =c.id_cliente
+ORDER BY p.id_producto, pe.id_cliente
+
+SELECT DISTINCT p.id_producto, p.descripcion, p.precio_unitario, count(r.id_producto) as cantidad_clientes_producto
+FROM main.renglones_pdo r RIGHT JOIN main.productos p 
+ON p.id_producto=r.id_producto RIGHT JOIN main.pedidos pe 
+ON r.id_pedido=pe.id_pedido
+GROUP BY p.id_producto
+
+WHERE (
+        SELECT DISTINCT pe.id_cliente
+        FROM main.renglones_pdo r RIGHT JOIN main.productos p 
+        ON p.id_producto=r.id_producto RIGHT JOIN main.pedidos pe 
+        ON r.id_pedido=pe.id_pedido)
 --
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 17-------------------------------------------
