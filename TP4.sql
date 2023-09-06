@@ -265,18 +265,11 @@ WHERE (
 ----17. Mostrar los nombres y apellidos de todos los vendedores agregando, cuando corresponda,
 ----el apellido de los clientes asignados a cada uno de ellos.
 --
-
------------CONSULTAR!!!!!!!!!!!!!!!
-SELECT v.nombres as NombreVend, v.apellidos as ApellidoVend,c.nombres as NombreCli,c.apellidos as ApellidoCli
-FROM main.vendedores v, main.clientes c
-WHERE v.id_vend=c.id_vend;
-
-SELECT id_vend
-FROM main.vendedores
-ORDER BY id_vend;
-SELECT id_cliente, id_vend
-FROM main.clientes
-ORDER BY id_vend;
+--SELECT v.nombres as NombreVend, v.apellidos as ApellidoVend,c.nombres as NombreCli,c.apellidos as ApellidoCli
+--FROM main.vendedores v LEFT JOIN main.clientes c
+--ON v.id_vend=c.id_vend
+--ORDER BY NombreVend;
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 18-------------------------------------------
 ------------------------------------------------------------------------------------------------
