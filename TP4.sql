@@ -209,6 +209,8 @@ set search_path='main';
 --                            FROM main.renglones_pdo r1
 --                            GROUP BY r1.id_producto);
 --
+--ALL SOME ANY con </>/=
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 14-------------------------------------------
 ------------------------------------------------------------------------------------------------
@@ -242,22 +244,13 @@ set search_path='main';
 ----16. Mostrar el id_producto, la descripción y precio unitario del producto que fue pedido por
 ----todos los clientes. 
 --
-SELECT distinct p.id_producto, pe.id_cliente
-FROM productos p LEFT JOIN renglones_pdo r ON p.id_producto=r.id_producto
-LEFT JOIN pedidos pe ON r.id_pedido=pe.id_pedido LEFT JOIN CLIENTES C ON pe.id_cliente =c.id_cliente
-ORDER BY p.id_producto, pe.id_cliente
-
-SELECT DISTINCT p.id_producto, p.descripcion, p.precio_unitario, count(r.id_producto) as cantidad_clientes_producto
-FROM main.renglones_pdo r RIGHT JOIN main.productos p 
-ON p.id_producto=r.id_producto RIGHT JOIN main.pedidos pe 
-ON r.id_pedido=pe.id_pedido
-GROUP BY p.id_producto
-
-WHERE (
-        SELECT DISTINCT pe.id_cliente
-        FROM main.renglones_pdo r RIGHT JOIN main.productos p 
-        ON p.id_producto=r.id_producto RIGHT JOIN main.pedidos pe 
-        ON r.id_pedido=pe.id_pedido)
+--SELECT distinct p.id_producto, p.descripcion, p.precio_unitario, pe.id_cliente
+--FROM productos p LEFT JOIN renglones_pdo r ON p.id_producto=r.id_producto
+--LEFT JOIN pedidos pe ON r.id_pedido=pe.id_pedido LEFT JOIN CLIENTES C ON pe.id_cliente =c.id_cliente
+--
+--WHERE  pe.id_cliente =SOME (
+--                            SELECT ped.id_cliente
+--                            FROM main.clientes ped)
 --
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 17-------------------------------------------
@@ -275,27 +268,21 @@ WHERE (
 ------------------------------------------------------------------------------------------------
 ----18. Listar aquellas localidades donde resida un vendedor o un cliente, pero no los dos. 
 --
-SELECT l.nombre as respuesta
-FROM localidades l, clientes c
-WHERE l.cod_post=c.cod_post
-AND l.cod_post_aux=c.cod_post_aux
-UNION  (SELECT l.nombre
-        FROM localidades l, vendedores v
-        WHERE l.cod_post=v.cod_post
-        AND l.cod_post_aux=v.cod_post_aux)
-EXCEPT
-SELECT l.nombre as inter
-FROM localidades l, clientes c
-WHERE l.cod_post=c.cod_post
-AND l.cod_post_aux=c.cod_post_aux
-INTERSECT  (SELECT l.nombre
-            FROM localidades l, vendedores v
-            WHERE l.cod_post=v.cod_post
-            AND l.cod_post_aux=v.cod_post_aux);
---
---
---Buen dia, hoy pasé por aca :p 02/09/2023 - RAFA
---
---
---
+--SELECT l.nombre as respuesta
+--FROM localidades l, clientes c
+--WHERE l.cod_post=c.cod_post
+--AND l.cod_post_aux=c.cod_post_aux
+--UNION  (SELECT l.nombre
+--        FROM localidades l, vendedores v
+--        WHERE l.cod_post=v.cod_post
+--        AND l.cod_post_aux=v.cod_post_aux)
+--EXCEPT
+--SELECT l.nombre as inter
+--FROM localidades l, clientes c
+--WHERE l.cod_post=c.cod_post
+--AND l.cod_post_aux=c.cod_post_aux
+--INTERSECT  (SELECT l.nombre
+--            FROM localidades l, vendedores v
+--            WHERE l.cod_post=v.cod_post
+--            AND l.cod_post_aux=v.cod_post_aux);
 --
