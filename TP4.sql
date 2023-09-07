@@ -251,6 +251,23 @@ set search_path='main';
 --WHERE  pe.id_cliente =SOME (
 --                            SELECT ped.id_cliente
 --                            FROM main.clientes ped)
+
+--RAFA
+SELECT distinct rp.id_producto,pr.descripcion,pr.precio_unitario
+FROM renglones_pdo rp
+JOIN pedidos p ON rp.id_pedido = p.id_pedido
+JOIN productos pr ON pr.id_producto = rp.id_producto
+WHERE NOT EXISTS (
+    SELECT c.id_cliente
+    FROM clientes c
+    WHERE NOT EXISTS (
+        SELECT *
+        FROM pedidos p2
+        JOIN renglones_pdo rp2 ON p2.id_pedido = rp2.id_pedido
+        WHERE c.id_cliente = p2.id_cliente
+        AND rp.id_producto = rp2.id_producto
+    )
+);
 --
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 17-------------------------------------------
@@ -263,6 +280,18 @@ set search_path='main';
 --ON v.id_vend=c.id_vend
 --ORDER BY NombreVend;
 --
+--RAFA
+select v.apellidos,v.nombres,
+case 
+	when c.apellidos is null then '' 
+	else c.apellidos end 
+as apellido,
+case 
+	when c.nombres is null then '' 
+	else c.nombres end 
+as nombres
+from vendedores v
+left join clientes c on c.id_vend = v.id_vend
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 18-------------------------------------------
 ------------------------------------------------------------------------------------------------
