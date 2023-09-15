@@ -244,15 +244,6 @@ set search_path='main';
 ----16. Mostrar el id_producto, la descripción y precio unitario del producto que fue pedido por
 ----todos los clientes. 
 --
---SELECT distinct p.id_producto, p.descripcion, p.precio_unitario, pe.id_cliente
---FROM productos p LEFT JOIN renglones_pdo r ON p.id_producto=r.id_producto
---LEFT JOIN pedidos pe ON r.id_pedido=pe.id_pedido LEFT JOIN CLIENTES C ON pe.id_cliente =c.id_cliente
---
---WHERE  pe.id_cliente =SOME (
---                            SELECT ped.id_cliente
---                            FROM main.clientes ped)
-
---RAFA
 SELECT distinct rp.id_producto,pr.descripcion,pr.precio_unitario
 FROM renglones_pdo rp
 JOIN pedidos p ON rp.id_pedido = p.id_pedido
@@ -275,12 +266,6 @@ WHERE NOT EXISTS (
 ----17. Mostrar los nombres y apellidos de todos los vendedores agregando, cuando corresponda,
 ----el apellido de los clientes asignados a cada uno de ellos.
 --
---SELECT v.nombres as NombreVend, v.apellidos as ApellidoVend,c.nombres as NombreCli,c.apellidos as ApellidoCli
---FROM main.vendedores v LEFT JOIN main.clientes c
---ON v.id_vend=c.id_vend
---ORDER BY NombreVend;
---
---RAFA
 select v.apellidos,v.nombres,
 case 
 	when c.apellidos is null then '' 
@@ -292,6 +277,7 @@ case
 as nombres
 from vendedores v
 left join clientes c on c.id_vend = v.id_vend
+--
 ------------------------------------------------------------------------------------------------
 -----------------------------------------EJERCICIO 18-------------------------------------------
 ------------------------------------------------------------------------------------------------
